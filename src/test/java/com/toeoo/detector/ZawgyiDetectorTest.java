@@ -30,7 +30,9 @@ public class ZawgyiDetectorTest {
                 "ကစိန်းက၀ါး",
                 "ကုန်ထုတ်သမဝါယမ",
                 "မဥ္ဇရီ",
-                "မဥ္ဇူ"
+                "မဥ္ဇူ",
+                "မင်္ဂလာပါ",
+                "မင်းသိင်္ခ"
         );
 
         Map<String, DetectedEnc> detected = new HashMap<>();
@@ -63,7 +65,9 @@ public class ZawgyiDetectorTest {
                 "ကစိန္းက၀ါး",
                 "ကုႏၳဳတ္သမဝါယမ",
                 "မၪၨရီ",
-                "မၪၨဴ"
+                "မၪၨဴ",
+                "မဂၤလာပါ",
+                "မင္းသိခၤ"
         );
 
         Map<String, DetectedEnc> detected = new HashMap<>();
