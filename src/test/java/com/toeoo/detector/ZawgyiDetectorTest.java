@@ -32,7 +32,8 @@ public class ZawgyiDetectorTest {
                 "မဥ္ဇရီ",
                 "မဥ္ဇူ",
                 "မင်္ဂလာပါ",
-                "မင်းသိင်္ခ"
+                "မင်းသိင်္ခ",
+                "မောင်းြဖစ်သူတိုသည်"
         );
 
         Map<String, DetectedEnc> detected = new HashMap<>();

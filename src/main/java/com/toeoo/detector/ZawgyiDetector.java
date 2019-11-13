@@ -1144,7 +1144,7 @@ public class ZawgyiDetector {
             }
         } else {
             m = DetectorUtils.match(this._uniC31CAThatRegExp, curStr);
-            if (m == null) {
+            if (m.isEmpty()) {
                 m = DetectorUtils.match(this._uniC312cAThatRegExp, curStr);
             }
         }
@@ -1544,7 +1544,7 @@ public class ZawgyiDetector {
 
         List<String> m = DetectorUtils.match(this._uniCKsAThatRegExp, curStr);
 
-        if (m == null) {
+        if (m.isEmpty()) {
             return Optional.empty();
         }
 
