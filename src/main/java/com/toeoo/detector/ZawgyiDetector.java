@@ -97,6 +97,7 @@ public class ZawgyiDetector {
     private final double _pUniPs95 = 0.95;
     private final double _pUniPs60 = 0.6;
     private final double _pUniPs50 = 0.5;
+    private final double _pUniPs49 = 0.49;
 
     private final double _pAThat95 = 0.95;
     private final double _pAThat75 = 0.75;
@@ -1248,7 +1249,7 @@ public class ZawgyiDetector {
                 probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
             }
         } else {
-            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
         }
 
         DetectorMatch match = new DetectorMatch();
