@@ -98,6 +98,7 @@ public class ZawgyiDetector {
     private final double _pUniPs60 = 0.6;
     private final double _pUniPs50 = 0.5;
     private final double _pUniPs49 = 0.49;
+    private final double _pUniPs47 = 0.47;
 
     private final double _pAThat95 = 0.95;
     private final double _pAThat75 = 0.75;
@@ -154,7 +155,7 @@ public class ZawgyiDetector {
 
             if ((sd == null || sd.getDetectedEnc() == DetectedEnc.none) && lastEnc != DetectedEnc.none) {
                 final DetectorMatch lastMatch = result.getMatches()
-                        .get(result.getMatches().size() - 1);
+                    .get(result.getMatches().size() - 1);
                 lastMatch.setLength(lastMatch.getLength() + curStr.length());
                 lastMatch.setMatchedString(lastMatch.getMatchedString() + curStr);
 
@@ -179,7 +180,7 @@ public class ZawgyiDetector {
 
             if (lastEnc == sd.getDetectedEnc() && result.getMatches().size() > 0) {
                 final DetectorMatch lastMatch = result.getMatches()
-                        .get(result.getMatches().size() - 1);
+                    .get(result.getMatches().size() - 1);
 
                 if (lastMatch.getProbability() > 0 & sd.getProbability() > 0) {
                     lastMatch.setProbability((lastMatch.getProbability() + sd.getProbability()) / 2);
@@ -241,8 +242,8 @@ public class ZawgyiDetector {
         final char c = curStr.trim().charAt(0);
 
         if (c == '\u1031' || c == '\u103B' || c == '\u107E' ||
-                c == '\u107F' || c == '\u1080' || c == '\u1081' ||
-                c == '\u1082' || c == '\u1083' || c == '\u1084') {
+            c == '\u107F' || c == '\u1080' || c == '\u1081' ||
+            c == '\u1082' || c == '\u1083' || c == '\u1084') {
             zd = this.detectZg(curStr, lastEnc, lastStr);
             zdChecked = true;
         }
@@ -392,7 +393,7 @@ public class ZawgyiDetector {
 
         if (curStr.length() >= 3) {
             List<String> m = DetectorUtils
-                    .match(this._zg31WPahsinDbRegExp, curStr);
+                .match(this._zg31WPahsinDbRegExp, curStr);
 
             if (m.size() > 0) {
                 curMatchedStr = m.get(0);
@@ -446,8 +447,8 @@ public class ZawgyiDetector {
         }
 
         final double probability = this.getProbForZg31(curStr, lastEnc,
-                lastStr, hasGreatProb, curMatchedStr, aThatMatched,
-                pahsinMatched);
+            lastStr, hasGreatProb, curMatchedStr, aThatMatched,
+            pahsinMatched);
 
         DetectorMatch detectorMatch = new DetectorMatch();
         detectorMatch.setDetectedEnc(DetectedEnc.zg);
@@ -470,12 +471,12 @@ public class ZawgyiDetector {
         double probability;
 
         if ((lastStr.length() == 0 || lastEnc == DetectedEnc.none) &&
-                curMatchedStr.length() == curStr.trim().length()) {
+            curMatchedStr.length() == curStr.trim().length()) {
             probability = this._pZg31Or3b95;
         } else if (lastStr.length() == 0 || lastEnc == DetectedEnc.none) {
             probability = this._pZg31Or3b85;
         } else if (curMatchedStr.length() > 2 &&
-                (this._zgOnlyCAndAcAfCFor31Or3bRegExp.matcher(curMatchedStr).find() || this.containsZgOnlyAcCombine(curMatchedStr))) {
+            (this._zgOnlyCAndAcAfCFor31Or3bRegExp.matcher(curMatchedStr).find() || this.containsZgOnlyAcCombine(curMatchedStr))) {
             probability = this._pZg31Or3b95;
         } else if (pahsinMatched) {
             probability = this._pZg31Or3b95;
@@ -484,15 +485,15 @@ public class ZawgyiDetector {
         } else if (aThatMatched || curMatchedStr.contains("\u1039")) {
             final int c39Index = curMatchedStr.indexOf("\u1039");
             final String testStr = c39Index == curMatchedStr.length() - 1 ?
-                    curStr.substring(curMatchedStr.length()) :
-                    curMatchedStr.substring(c39Index + 1);
+                curStr.substring(curMatchedStr.length()) :
+                curMatchedStr.substring(c39Index + 1);
             final String cAf39 = testStr.length() > 0 ? testStr.charAt(0) + "" : "";
 
             if (cAf39.length() > 0 && this._zgHasUniPsLoCRegExp.matcher(cAf39).find()) {
                 probability = this._pZg31Or3b50;
             } else {
                 probability = lastEnc.equals(DetectedEnc.zg) && hasGreatProb ?
-                        this._pZg31Or3b53 : this._pZg31Or3b50;
+                    this._pZg31Or3b53 : this._pZg31Or3b50;
             }
         } else if (curMatchedStr.contains(" ") || this._spRegExp.matcher(curMatchedStr).find()) {
             probability = this._pC52;
@@ -505,9 +506,9 @@ public class ZawgyiDetector {
 
     private boolean containsZgOnlyAcCombine(String curMatchedStr) {
         if (curMatchedStr.length() > 2 && (this._zgOnlyAc2bOr2cCbRegExp.matcher(curMatchedStr).find() ||
-                this._zgOnlyAc2dOr2eCbRegExp.matcher(curMatchedStr).find() || this._zgOnlyAc2fOr30CbRegExp.matcher(curMatchedStr).find() ||
-                this._zgOnlyAc32Or36CbRegExp.matcher(curMatchedStr).find() || this._zgOnlyAc39CbRegExp.matcher(curMatchedStr).find() ||
-                this._zgOnlyAc37CbRegExp.matcher(curMatchedStr).find() || this._zgOnlyAc3ACbRegExp.matcher(curMatchedStr).find())) {
+            this._zgOnlyAc2dOr2eCbRegExp.matcher(curMatchedStr).find() || this._zgOnlyAc2fOr30CbRegExp.matcher(curMatchedStr).find() ||
+            this._zgOnlyAc32Or36CbRegExp.matcher(curMatchedStr).find() || this._zgOnlyAc39CbRegExp.matcher(curMatchedStr).find() ||
+            this._zgOnlyAc37CbRegExp.matcher(curMatchedStr).find() || this._zgOnlyAc3ACbRegExp.matcher(curMatchedStr).find())) {
             return true;
         }
 
@@ -526,7 +527,7 @@ public class ZawgyiDetector {
         final char c = curStr.charAt(0);
 
         if (c != '\u103B' && c != '\u107E' && c != '\u107F' && c != '\u1080' &&
-                c != '\u1081' && c != '\u1082' && c != '\u1083' && c != '\u1084') {
+            c != '\u1081' && c != '\u1082' && c != '\u1083' && c != '\u1084') {
             return Optional.empty();
         }
 
@@ -615,7 +616,7 @@ public class ZawgyiDetector {
         } else if (lastStr.length() == 0 || lastEnc == DetectedEnc.none) {
             probability = this._pZg31Or3b85;
         } else if (curMatchedStr.length() > 2 &&
-                (this._zgOnlyCAndAcAfCFor31Or3bRegExp.matcher(curMatchedStr).find() || this.containsZgOnlyAcCombine(curMatchedStr))) {
+            (this._zgOnlyCAndAcAfCFor31Or3bRegExp.matcher(curMatchedStr).find() || this.containsZgOnlyAcCombine(curMatchedStr))) {
             probability = this._pZg31Or3b95;
         } else if (pahsinMatched) {
             probability = this._pZg31Or3b95;
@@ -624,15 +625,15 @@ public class ZawgyiDetector {
         } else if (aThatMatched || curMatchedStr.contains("\u1039")) {
             final int c39Index = curMatchedStr.indexOf("\u1039");
             final String testStr = c39Index == curMatchedStr.length() - 1 ?
-                    curStr.substring(curMatchedStr.length()) :
-                    curMatchedStr.substring(c39Index + 1);
+                curStr.substring(curMatchedStr.length()) :
+                curMatchedStr.substring(c39Index + 1);
             final String cAf39 = testStr.length() > 0 ? testStr.charAt(0) + "" : "";
 
             if (cAf39.length() != 0 && this._zgHasUniPsLoCRegExp.matcher(cAf39).find()) {
                 probability = this._pZg31Or3b50;
             } else {
                 probability = lastEnc == DetectedEnc.zg && hasGreatProb
-                        ? this._pZg31Or3b53 : this._pZg31Or3b50;
+                    ? this._pZg31Or3b53 : this._pZg31Or3b50;
             }
         } else if (curMatchedStr.contains(" ") || this._spRegExp.matcher(curMatchedStr).find()) {
             probability = this._pC52;
@@ -676,7 +677,7 @@ public class ZawgyiDetector {
 
         double probability;
         if (lastEnc == DetectedEnc.zg || hasGreatProb || lastStr.length() == 0 ||
-                lastEnc == DetectedEnc.none || curMatchedStr.length() == curStr.trim().length() || aThatMatched) {
+            lastEnc == DetectedEnc.none || curMatchedStr.length() == curStr.trim().length() || aThatMatched) {
             probability = this._pZgPs95;
         } else {
             probability = this._pZgPs90;
@@ -723,12 +724,12 @@ public class ZawgyiDetector {
             boolean isZgStart = false;
             final int cp = curStr.codePointAt(0);
             if (((cp >= 0x1000 && cp <= 0x1021) ||
-                    (cp >= 0x1023 && cp <= 0x1027) ||
-                    (cp >= 0x1029 && cp <= 0x102A) ||
-                    (cp >= 0x1040 && cp <= 0x1049) ||
-                    (cp >= 0x104C && cp <= 0x104F) ||
-                    (cp >= 0x106A && cp <= 0x106B) ||
-                    cp == 0x1086 || cp == 0x108F || cp == 0x1090)) {
+                (cp >= 0x1023 && cp <= 0x1027) ||
+                (cp >= 0x1029 && cp <= 0x102A) ||
+                (cp >= 0x1040 && cp <= 0x1049) ||
+                (cp >= 0x104C && cp <= 0x104F) ||
+                (cp >= 0x106A && cp <= 0x106B) ||
+                cp == 0x1086 || cp == 0x108F || cp == 0x1090)) {
                 isZgStart = true;
             }
             if (!isZgStart) {
@@ -759,7 +760,7 @@ public class ZawgyiDetector {
 
         if (c == '\u104E' || c == '\u106A' || c == '\u106B' || c == '\u1086' || c == '\u108F' || c == '\u1090') {
             if (lastEnc == DetectedEnc.zg || lastEnc == DetectedEnc.none || hasGreatProb ||
-                    lastStr.length() == 0 || curMatchedStr.length() == curStr.trim().length()) {
+                lastStr.length() == 0 || curMatchedStr.length() == curStr.trim().length()) {
                 probability = this._pC95;
             } else {
                 probability = this._pC85;
@@ -777,7 +778,7 @@ public class ZawgyiDetector {
                 probability = lastEnc == DetectedEnc.zg && hasGreatProb ? this._pC54 : this._pC50;
             }
         } else if ((curMatchedStr.length() > 1 && this._zgOnlyCAndAcAfCRegExp.matcher(curMatchedStr).find()) ||
-                (this.containsZgOnlyAcCombine(curMatchedStr))) {
+            (this.containsZgOnlyAcCombine(curMatchedStr))) {
             probability = lastEnc == DetectedEnc.zg && hasGreatProb ? this._pC95 : this._pC85;
         } else {
             if (lastEnc == DetectedEnc.zg && hasGreatProb) {
@@ -808,8 +809,8 @@ public class ZawgyiDetector {
 
         final int c39Index = curMatchedStr.indexOf("\u1039");
         final String testStr = c39Index == curMatchedStr.length() - 1 ?
-                curStr.substring(curMatchedStr.length()) :
-                curMatchedStr.substring(c39Index + 1);
+            curStr.substring(curMatchedStr.length()) :
+            curMatchedStr.substring(c39Index + 1);
         final String cAf39 = testStr.length() > 0 ? testStr.charAt(0) + "" : "";
 
         if (curMatchedStr.equals("\u1004\u103A\u1039")) {
@@ -819,11 +820,11 @@ public class ZawgyiDetector {
                 probability = this._pC50;
             }
         } else if ((curMatchedStr.length() == curStr.trim().length()) ||
-                (cAf39.length() != 0 && !this._zgHasUniPsLoCRegExp.matcher(cAf39).find()) ||
-                this._zgOnlyCAndAcAfCRegExp.matcher(curMatchedStr).find()) {
+            (cAf39.length() != 0 && !this._zgHasUniPsLoCRegExp.matcher(cAf39).find()) ||
+            this._zgOnlyCAndAcAfCRegExp.matcher(curMatchedStr).find()) {
 
             probability = aThatMatched || lastEnc == DetectedEnc.zg || hasGreatProb ?
-                    this._pC95 : this._pC85;
+                this._pC95 : this._pC85;
         } else if (curMatchedStr.contains(" ") || this._spRegExp.matcher(curMatchedStr).find()) {
             probability = this._pC52;
         } else if (!aThatMatched && (lastStr.length() == 0 || lastEnc == DetectedEnc.none)) {
@@ -850,9 +851,9 @@ public class ZawgyiDetector {
 
         if (this._zgOnlyCAndAcAfCRegExp.matcher(curMatchedStr).find()) {
             probability = aThatMatched || lastEnc == DetectedEnc.zg || hasGreatProb ?
-                    this._pC95 : this._pC85;
+                this._pC95 : this._pC85;
         } else if ((lastEnc == DetectedEnc.none || lastStr.length() == 0) &&
-                curMatchedStr.length() == 2 && curMatchedStr.length() == curStr.trim().length()) {
+            curMatchedStr.length() == 2 && curMatchedStr.length() == curStr.trim().length()) {
             probability = this._pC55;
         } else if (curMatchedStr.contains(" ") || this._spRegExp.matcher(curMatchedStr).find()) {
             probability = this._pC52;
@@ -895,8 +896,8 @@ public class ZawgyiDetector {
             }
 
             if (prevIsNewLine && !startOfNewChunk && lastEnc != DetectedEnc.none && lastStr.length() > 0 &&
-                    (c == '[' || c == '(' || c == '{' || c == '#' || c == '*' || c == '\'' || c == '"' ||
-                            c == 'z' || c == 'u' || c == '\u101A' || c == '\u1007' || c == '\u1031' || c == '\u104A' || c == '\u104B')) {
+                (c == '[' || c == '(' || c == '{' || c == '#' || c == '*' || c == '\'' || c == '"' ||
+                    c == 'z' || c == 'u' || c == '\u101A' || c == '\u1007' || c == '\u1031' || c == '\u104A' || c == '\u104B')) {
 
                 final String testStr = curStr.substring(i);
 
@@ -923,16 +924,16 @@ public class ZawgyiDetector {
             }
 
             if ((lastEnc == null && lastStr.length() == 0) && ((cp >= 0x102B && cp <= 0x1030) ||
-                    (cp >= 0x1032 && cp <= 0x1034) ||
-                    (cp >= 0x1036 && cp <= 0x103A) ||
-                    (cp >= 0x103C && cp <= 0x103E) ||
-                    cp == 0x105A ||
-                    (cp >= 0x1060 && cp <= 0x1069) ||
-                    (cp >= 0x106C && cp <= 0x106D) ||
-                    (cp >= 0x1070 && cp <= 0x107D) ||
-                    cp == 0x1085 ||
-                    (cp >= 0x1086 && cp <= 0x108E) ||
-                    (cp >= 0x1093 && cp <= 0x1096))) {
+                (cp >= 0x1032 && cp <= 0x1034) ||
+                (cp >= 0x1036 && cp <= 0x103A) ||
+                (cp >= 0x103C && cp <= 0x103E) ||
+                cp == 0x105A ||
+                (cp >= 0x1060 && cp <= 0x1069) ||
+                (cp >= 0x106C && cp <= 0x106D) ||
+                (cp >= 0x1070 && cp <= 0x107D) ||
+                cp == 0x1085 ||
+                (cp >= 0x1086 && cp <= 0x108E) ||
+                (cp >= 0x1093 && cp <= 0x1096))) {
                 hasUnDeteactableStart = true;
                 curMatchedStr += c;
                 continue;
@@ -1168,14 +1169,14 @@ public class ZawgyiDetector {
         final String cBf3a = curMatchedStr.charAt(curMatchedStr.indexOf('\u103A') - 1) + "";
 
         if (curMatchedStr.contains("\u103F") ||
-                curMatchedStr.contains("\u102B") ||
-                curMatchedStr.contains("\u102C") ||
-                curMatchedStr.contains("\u103E") ||
-                this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
+            curMatchedStr.contains("\u102B") ||
+            curMatchedStr.contains("\u102C") ||
+            curMatchedStr.contains("\u103E") ||
+            this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
             probability = this._pAThat95;
         } else if (this._zgCNotCompat3aRegExp.matcher(cBf3a).find()) {
             probability = hasGreatProb || curMatchedStr.endsWith("\u1037") || curMatchedStr.endsWith("\u1038") ?
-                    this._pAThat75 : this._pAThat54;
+                this._pAThat75 : this._pAThat54;
         } else {
             probability = lastEnc == DetectedEnc.uni && lastStr.length() > 0 && hasGreatProb ? this._pAThat54 : this._pAThat50;
         }
@@ -1201,10 +1202,10 @@ public class ZawgyiDetector {
         boolean startsWithSgPs = false;
 
         if (curStr.startsWith("\u100D\u1039\u100D") ||
-                curStr.startsWith("\u100D\u1039\u100E") ||
-                curStr.startsWith("\u100F\u1039\u100D") ||
-                curStr.startsWith("\u100B\u1039\u100C") ||
-                curStr.startsWith("\u100B\u1039\u100B")) {
+            curStr.startsWith("\u100D\u1039\u100E") ||
+            curStr.startsWith("\u100F\u1039\u100D") ||
+            curStr.startsWith("\u100B\u1039\u100C") ||
+            curStr.startsWith("\u100B\u1039\u100B")) {
             startsWithSgPs = true;
         }
 
@@ -1234,11 +1235,11 @@ public class ZawgyiDetector {
         double probability;
 
         if (startsWithSgPs ||
-                curMatchedStr.contains("\u100D\u1039\u100D") ||
-                curMatchedStr.contains("\u100D\u1039\u100E") ||
-                curMatchedStr.contains("\u100F\u1039\u100D") ||
-                curMatchedStr.contains("\u100B\u1039\u100C") ||
-                curMatchedStr.contains("\u100B\u1039\u100B")) {
+            curMatchedStr.contains("\u100D\u1039\u100D") ||
+            curMatchedStr.contains("\u100D\u1039\u100E") ||
+            curMatchedStr.contains("\u100F\u1039\u100D") ||
+            curMatchedStr.contains("\u100B\u1039\u100C") ||
+            curMatchedStr.contains("\u100B\u1039\u100B")) {
             probability = this._pUniPs95;
         } else if (this.isInUniPahsin(curStr, lastStr)) {
             probability = this._pUniPs60;
@@ -1246,10 +1247,13 @@ public class ZawgyiDetector {
             if (curMatchedStr.contains("\u1031") && (curMatchedStr.contains("\u102B") || curMatchedStr.contains("\u102C"))) {
                 probability = this._pAThat95;
             } else {
-                probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+                probability = this.getProbabilityForPahsin(curMatchedStr, lastEnc, hasGreatProb);
+                if (probability < this._pUniPs50) {
+                    probability = this._pUniPs50;
+                }
             }
         } else {
-            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+            probability = this.getProbabilityForPahsin(curMatchedStr, lastEnc, hasGreatProb);
         }
 
         DetectorMatch match = new DetectorMatch();
@@ -1321,15 +1325,15 @@ public class ZawgyiDetector {
         final String cBf3a = curMatchedStr.charAt(curMatchedStr.indexOf("\u103A") - 1) + "";
 
         if (curMatchedStr.charAt(0) == '\u104E' ||
-                curMatchedStr.charAt(0) == '\u103F' ||
-                curMatchedStr.contains("\u103E") ||
-                this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0)) ||
-                (curMatchedStr.contains("\u103B") && this._uniOnlyAcAf3bRegExp.matcher(curMatchedStr.substring(curMatchedStr.indexOf("\u103B") + 1)).find()) ||
-                this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
+            curMatchedStr.charAt(0) == '\u103F' ||
+            curMatchedStr.contains("\u103E") ||
+            this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0)) ||
+            (curMatchedStr.contains("\u103B") && this._uniOnlyAcAf3bRegExp.matcher(curMatchedStr.substring(curMatchedStr.indexOf("\u103B") + 1)).find()) ||
+            this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
             probability = this._pAThat95;
         } else if (this._zgCNotCompat3aRegExp.matcher(cBf3a).find()) {
             probability = hasGreatProb || curMatchedStr.endsWith("\u1037") || curMatchedStr.endsWith("\u1038") ?
-                    this._pAThat75 : this._pAThat54;
+                this._pAThat75 : this._pAThat54;
         } else {
             probability = lastEnc == DetectedEnc.uni && lastStr.length() != 0 && hasGreatProb ? this._pAThat54 : this._pAThat50;
         }
@@ -1345,8 +1349,8 @@ public class ZawgyiDetector {
 
     private boolean isUniOnlyCodePoint(int cp) {
         if (cp == 0x1022 || cp == 0x1028 || cp == 0x1035 || cp == 0x103E || cp == 0x103F ||
-                (cp >= 0x1050 && cp <= 0x1059) || (cp >= 0x105B && cp <= 0x105F) || (cp >= 0x1098 && cp <= 0x109F) ||
-                (cp >= 0xA9E0 && cp <= 0xA9FF) || (cp >= 0xAA60 && cp <= 0xAA7F)) {
+            (cp >= 0x1050 && cp <= 0x1059) || (cp >= 0x105B && cp <= 0x105F) || (cp >= 0x1098 && cp <= 0x109F) ||
+            (cp >= 0xA9E0 && cp <= 0xA9FF) || (cp >= 0xAA60 && cp <= 0xAA7F)) {
             return true;
         }
 
@@ -1402,9 +1406,9 @@ public class ZawgyiDetector {
             boolean isUniStart = false;
             final int cp = curStr.codePointAt(0);
             if (((cp >= 0x1000 && cp <= 0x102A) ||
-                    cp == 0x103F ||
-                    (cp >= 0x1040 && cp <= 0x1049) ||
-                    (cp >= 0x104C && cp <= 0x104F))) {
+                cp == 0x103F ||
+                (cp >= 0x1040 && cp <= 0x1049) ||
+                (cp >= 0x104C && cp <= 0x104F))) {
 
                 isUniStart = true;
             }
@@ -1447,12 +1451,12 @@ public class ZawgyiDetector {
         if (this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
             probability = this._pUniCMax;
         } else if (curMatchedStr.contains("\u1031") &&
-                curMatchedStr.indexOf("\u1031") + 1 < curMatchedStr.length() &&
-                this._uniOnlyAcAf31RegExp.matcher(curMatchedStr.substring(curMatchedStr.indexOf("\u1031") + 1)).find()) {
+            curMatchedStr.indexOf("\u1031") + 1 < curMatchedStr.length() &&
+            this._uniOnlyAcAf31RegExp.matcher(curMatchedStr.substring(curMatchedStr.indexOf("\u1031") + 1)).find()) {
             probability = this._pUniCMax;
         } else if (curMatchedStr.contains("\u103B") &&
-                curMatchedStr.indexOf("\u103B") + 1 < curMatchedStr.length() &&
-                this._uniOnlyAcAf3bRegExp.matcher(curMatchedStr.substring(curMatchedStr.indexOf("\u103B") + 1)).find()) {
+            curMatchedStr.indexOf("\u103B") + 1 < curMatchedStr.length() &&
+            this._uniOnlyAcAf3bRegExp.matcher(curMatchedStr.substring(curMatchedStr.indexOf("\u103B") + 1)).find()) {
             probability = this._pUniCMax;
         } else if (curMatchedStr.contains("\u103A")) {
             probability = lastStr.length() == 0 || lastEnc == DetectedEnc.none || !this._uniC1CompatWithAThat.matcher(lastStr).find() ? this._pC20 : this._pC50;
@@ -1465,11 +1469,11 @@ public class ZawgyiDetector {
             }
 
             if ((lastStr.length() == 0 || lastEnc == DetectedEnc.none) &&
-                    curMatchedStr.length() == curStr.trim().length() &&
-                    (curMatchedStr.contains("\u1031") || curMatchedStr.contains("\u103B"))) {
+                curMatchedStr.length() == curStr.trim().length() &&
+                (curMatchedStr.contains("\u1031") || curMatchedStr.contains("\u103B"))) {
                 probability = this._pC95;
             } else if (curMatchedStr.length() == curStr.trim().length() &&
-                    (curMatchedStr.contains("\u1031") || curMatchedStr.contains("\u103B"))) {
+                (curMatchedStr.contains("\u1031") || curMatchedStr.contains("\u103B"))) {
                 probability = hasGreatProb ? this._pC95 : this._pC85;
             } else if (curMatchedStr.length() == 2 && curMatchedStr.endsWith("\u103A")) {
                 if (lastStr.length() == 0 || lastEnc != DetectedEnc.uni || !this._uniCAThatCompatRegExp.matcher(curMatchedStr).find()) {
@@ -1567,9 +1571,9 @@ public class ZawgyiDetector {
         final char cBf3a = curMatchedStr.charAt(curMatchedStr.indexOf("\u103A") - 1);
 
         if (curMatchedStr.charAt(0) == '\u103F' ||
-                curMatchedStr.contains("\u103B\u102C") ||
-                curMatchedStr.contains("\u103B\u103A") ||
-                this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
+            curMatchedStr.contains("\u103B\u102C") ||
+            curMatchedStr.contains("\u103B\u103A") ||
+            this.isUniOnlyCodePoint(curMatchedStr.codePointAt(0))) {
             probability = this._pAThat95;
         } else if (this._zgCNotCompat3aRegExp.matcher(cBf3a + "").find()) {
             probability = hasGreatProb || curMatchedStr.endsWith("\u1037") || curMatchedStr.endsWith("\u1038") ? this._pAThat75 : this._pAThat54;
@@ -1584,5 +1588,70 @@ public class ZawgyiDetector {
         match.setLength(curMatchedStr.length());
         match.setMatchedString(curMatchedStr);
         return Optional.of(match);
+    }
+
+    private double getProbabilityForPahsin(
+        String curMatchedStr,
+        DetectedEnc lastEnc,
+        boolean hasGreatProb
+    ) {
+        final char c1 = curMatchedStr.charAt(0);
+        final char c2 = curMatchedStr.charAt(2);
+
+        double probability;
+
+        if (c1 == '\u1000' && (c2 == '\u1000' || c2 == '\u1001')) {
+            // က္က / က္ခ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 == '\u1002' && (c2 == '\u1002' || c2 == '\u1003')) {
+            // ဂ္ဂ / ဂ္ဃ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 == '\u1005' && (c2 == '\u1005' || c2 == '\u1006')) {
+            // စ္စ / စ္ဆ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 == '\u1007' && (c2 == '\u1007' || c2 == '\u1008')) {
+            // ဇ္ဇ / ဇ္ဈ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 == '\u1009' && (c2 == '\u1005' || c2 == '\u1006' || c2 == '\u1007' || c2 == '\u1008')) {
+            // ဉ္စ / ဉ္ဆ / ဉ္ဇ / ဉ္ဈ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 == '\u100B' && (c2 == '\u100B' || c2 == '\u100C')) {
+            // ဋ္ဋ / ဋ္ဌ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 == '\u100D' && (c2 == '\u100D' || c2 == '\u100E')) {
+            // ဍ္ဍ / ဍ္ဎ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 == '\u100F' && (c2 == '\u100B' || c2 == '\u100C' || c2 == '\u100D' || c2 == '\u100E' || c2 == '\u100F')) {
+            // ဏ္ဋ / ဏ္ဌ / ဏ္ဍ / ဏ္ဏ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 == '\u1010' && (c2 == '\u1010' || c2 == '\u1011')) {
+            // တ္တ / တ္ထ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 == '\u1012' && (c2 == '\u1012' || c2 == '\u1013')) {
+            // ဒ္ဒ / ဒ္ဓ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+        } else if (c1 == '\u1014' && (c2 == '\u1010' || c2 == '\u1011' || c2 == '\u1012' || c2 == '\u1013' || c2 == '\u1014')) {
+            // န္တ / န္ထ / န္ဒ / န္ဓ / န္န
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+        } else if (c1 == '\u1015' && (c2 == '\u1015' || c2 == '\u1016')) {
+            // ပ္ပ / ပ္ဖ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 == '\u1017' && (c2 == '\u1017' || c2 == '\u1018')) {
+            // ဗ္ဗ / ဗ္ဘ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs50;
+        } else if (c1 == '\u1019' && (c2 == '\u1015' || c2 == '\u1016' || c2 == '\u1017' || c2 == '\u1018' || c2 == '\u1019')) {
+            // မ္ပ / မ္ဗ / မ္ဘ / မ္မ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs49;
+        } else if (c1 == '\u101C' && c2 == '\u101C') {
+            // လ္လ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else if (c1 == '\u1020' && c2 == '\u1020') {
+            // ဠ္ဠ
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs60;
+        } else {
+            probability = lastEnc == DetectedEnc.uni && hasGreatProb ? this._pUniPs95 : this._pUniPs47;
+        }
+
+        return probability;
     }
 }
