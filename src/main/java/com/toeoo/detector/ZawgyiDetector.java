@@ -10,7 +10,7 @@ public class ZawgyiDetector {
     private final String[][] uniPahsinWords = UniPahsinWords.getWords(); // add data
 
     // Separator
-    private final Pattern _seperatorRegExp = Pattern.compile("[#\\*\\(\\[\\{\\'\\\"]?[\\s]?(zawgyi|unicode|zg|uni|(\\u101A\\u1030\\u1014\\u102D?\\u102E\\u1000\\u102F[\\u1010\\u1012][\\u1039\\u103A])|(\\u1007\\u1031\\u102C\\u103A\\u1002\\u103B\\u102E)|(\\u1031\\u1007\\u102C\\u1039\\u1002\\u103A\\u102D?\\u102E))");
+    private final Pattern _seperatorRegExp = Pattern.compile("^[#\\*\\(\\[\\{\\'\\\"]?[\\s]?(zawgyi|unicode|zg|uni|(\\u101A\\u1030\\u1014\\u102D?\\u102E\\u1000\\u102F[\\u1010\\u1012][\\u1039\\u103A])|(\\u1007\\u1031\\u102C\\u103A\\u1002\\u103B\\u102E)|(\\u1031\\u1007\\u102C\\u1039\\u1002\\u103A\\u102D?\\u102E))");
     private final Pattern _mixBlockTestRegExp = Pattern.compile("[\\u1000-\\u1097]");
     private final Pattern _spRegExp = Pattern.compile("[" + rSp + "]");
 
