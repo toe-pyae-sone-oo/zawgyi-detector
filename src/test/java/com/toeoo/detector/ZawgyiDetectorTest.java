@@ -29,11 +29,11 @@ public class ZawgyiDetectorTest {
                 "ဥုံဩောင်း",
                 "ကစိန်းက၀ါး",
                 "ကုန်ထုတ်သမဝါယမ",
-//                "မဥ္ဇရီ", this test case is failed after last commit
-//                "မဥ္ဇူ", this test case is failed after last commit
+                "မဥ္ဇရီ",
+                "မဥ္ဇူ",
                 "မင်္ဂလာပါ",
                 "မင်းသိင်္ခ",
-                "မောင်းြဖစ်သူတိုသည်"
+                "မောင်းဖြစ်သူတို့သည်"
         );
 
         Map<String, DetectedEnc> detected = new HashMap<>();
