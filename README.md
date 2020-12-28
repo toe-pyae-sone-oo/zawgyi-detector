@@ -8,7 +8,7 @@ https://github.com/myanmartools/ng-zawgyi-detector in Java.
 
 ```java
 ZawgyiDetector detector = new ZawgyiDetector();
-DetectorResult result = detector.detect"မင်္ဂလာပါ");
+DetectorResult result = detector.detect("မင်္ဂလာပါ");
 System.out.println(result.getDetectedEnc()); // uni
 ```
 
